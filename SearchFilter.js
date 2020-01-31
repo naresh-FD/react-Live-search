@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import Hello from './Hello'
+import Loader from './loader.gif';
 class SearchFilter extends Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +15,7 @@ class SearchFilter extends Component {
 
 	HandleInputCHange = event => {
 		const query = event.target.value;
-		console.log({ query });
+		// console.log({ query });
 		// this.setstate(
 		//   {loading:true ,
 		//  message: '',}
@@ -46,7 +46,7 @@ class SearchFilter extends Component {
 				const resultNotFoundMsg = !res.data.hits.length
 					? 'There are no more search results. Please try a new search.'
 					: '';
-				console.log(res.data.hits);
+				// console.log(res.data.hits);
 				this.setState({
 					results: res.data.hits,
 					message: resultNotFoundMsg,
@@ -66,17 +66,16 @@ class SearchFilter extends Component {
 	renderSearchResults = () => {
 		const { results } = this.state;
 
-		console.log(results);
+		// console.log(results);
 		if (Object.keys(results).length && results.length) {
 			return (
-				<div className='results-container'>
+				<div className='results-container row'>
 					{results.map(result => {
 						return (
-							<div key={result.id} className='image-wrapper col-md-4'>
+							<div key={result.id} className='image-wrapper col col-md-3'>
 								<a href={result.previewURL} className='result-items'>
 									<h6 className='image-username'>{result.user}</h6>
 									<img
-										className='image'
 										src={result.previewURL}
 										alt={result.user}
 										className='img-fluid img-responsive'
@@ -91,9 +90,9 @@ class SearchFilter extends Component {
 	};
 
 	render() {
-		const query = this.state;
+		const { query, loading, message } = this.state;
 		return (
-			<div className='container p-0'>
+			<div className='container p-0 bg-danger'>
 				<p className='text-center p-2 bg-danger'>Search</p>
 				<div className='col-md-12 p-2'>
 					<div className='input-group mb-3'>
@@ -108,7 +107,15 @@ class SearchFilter extends Component {
 					</div>
 				</div>
 
-				<div className='conatiner bg-info'>
+				<div className='conatiner bg-primary'>
+					{message && <p className='message'>{message}</p>}
+
+					<img
+						src='https://raw.githubusercontent.com/imranhsayed/react-workshop/live-search-react/src/loader.gif'
+						className={`search-loading ${loading ? 'show' : 'hide'}`}
+						alt='loader'
+					/>
+
 					<div className='col-md-12'>{this.renderSearchResults()}</div>
 				</div>
 			</div>

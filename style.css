@@ -1,3 +1,11 @@
-h1, p {
-  font-family: Lato;
+h1,
+p {
+	font-family: Lato;
+}
+.show {
+	display: inline-block;
+}
+
+.hide {
+	display: none;
 }
