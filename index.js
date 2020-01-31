@@ -8,7 +8,7 @@ class App extends Component {
 
   render() {
     return (
-      <div classname="container- p-0">
+      <div className="container- p-0">
         <SearchFilter />
       </div>
     );
